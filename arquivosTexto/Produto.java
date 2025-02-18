@@ -118,7 +118,7 @@ public abstract class Produto {
      * @param linha Linha com os dados do produto a ser criado.
      * @return Um produto com os dados recebidos
      */
-    static Produto converterLinha(String linha){  // criarDoTexto(String linha)
+    static Produto criarDoTexto(String linha){  
         String[] dados = linha.split(";");
         int tipo = Integer.parseInt(dados[0]);
         String descricao = dados[1];

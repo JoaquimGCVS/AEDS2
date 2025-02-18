@@ -60,15 +60,51 @@ public class Comercio {
      * @return Um vetor com os produtos carregados, ou vazio em caso de problemas de leitura.
      */
     static Produto[] lerProdutos(String nomeArquivoDados) {
-        
+        Scanner arquivoEntrada = null;
+        int qnt;
+        String linha;
+        Produto[] produtosCadastrados = new Produto[MAX_NOVOS_PRODUTOS];
+        try {
+            arquivoEntrada = new Scanner(new File(nomeArquivoDados), Charset.forName("UTF-8"));
+            qnt = Integer.parseInt(arquivoEntrada.nextLine());
+            for (int i = 0; i < qnt; i++) {
+                if (arquivoEntrada.hasNextLine()) {
+                    linha = arquivoEntrada.nextLine();
+                    produtosCadastrados[i] = Produto.criarDoTexto(linha);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Arquivo não encontrado: " + nomeArquivoDados);
+            return new Produto[0]; // Retorna um vetor vazio
+        } catch (Exception e) {
+            System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+            return new Produto[0];
+        } finally {
+            if (arquivoEntrada != null) {
+                arquivoEntrada.close();
+            }
+        }
+        return produtosCadastrados;
     }
 
     
     /** Localiza um produto no vetor de cadastrados, a partir do nome, e imprime seus dados. 
      *  A busca não é sensível ao caso.  Em caso de não encontrar o produto, imprime mensagem padrão */
-    static void localizarProdutos(){
+    static void localizarProdutos() {
+        System.out.print("Digite o nome do produto a ser localizado: ");
+        String nomeProduto = teclado.nextLine().trim().toLowerCase();
+        boolean encontrado = false;
     
-	}
+        for (Produto produto : produtosCadastrados) {
+            if (produto != null && produto.descricao.toLowerCase().contains(nomeProduto)) {
+                System.out.println(produto);
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Produto não encontrado.");
+        }
+    }
 
     
 
@@ -90,6 +126,59 @@ public class Comercio {
             System.out.println("Problemas no arquivo "+nomeArquivo+". Tente novamente");
         }  
     }
+
+    /** Lista todos os produtos cadastrados, numerados, um por linha */
+    static void listarTodosOsProdutos() {
+        int index=0;
+        for (Produto produto : produtosCadastrados) {
+            System.out.println(index++ + "- " + produto.toString());
+        }
+    }
+
+    /**
+    * Rotina para cadastro de um novo produto: pergunta ao usuário o tipo do produto, lê os dados correspondentes,
+    * cria o objeto adequado de acordo com seu tipo, e inclui o produto no vetor.
+    */
+    /**
+ * Rotina para cadastro de um novo produto: pergunta ao usuário o tipo do produto, lê os dados correspondentes,
+ * cria o objeto adequado de acordo com seu tipo, e inclui o produto no vetor.
+ */
+static void cadastrarProduto() {
+    if (quantosProdutos >= produtosCadastrados.length) {
+        System.out.println("Não é possível cadastrar mais produtos. Limite atingido.");
+        return;
+    }
+
+    System.out.print("Digite o tipo do produto (1 - Não Perecível, 2 - Perecível): ");
+    int tipo = Integer.parseInt(teclado.nextLine().trim());
+
+    System.out.print("Digite a descrição do produto: ");
+    String descricao = teclado.nextLine().trim();
+
+    System.out.print("Digite o preço de custo do produto: ");
+    double precoCusto = Double.parseDouble(teclado.nextLine().trim());
+
+    System.out.print("Digite a margem de lucro do produto: ");
+    double margemLucro = Double.parseDouble(teclado.nextLine().trim());
+
+    Produto novoProduto = null;
+
+    if (tipo == 1) {
+        novoProduto = new ProdutoNaoPerecivel(descricao, precoCusto, margemLucro);
+    } else if (tipo == 2) {
+        System.out.print("Digite a data de validade do produto (dd/MM/yyyy): ");
+        String dataValidadeStr = teclado.nextLine().trim();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataDeValidade = LocalDate.parse(dataValidadeStr, formato);
+        novoProduto = new ProdutoPerecivel(descricao, precoCusto, margemLucro, dataDeValidade);
+    } else {
+        System.out.println("Tipo de produto inválido.");
+        return;
+    }
+
+    produtosCadastrados[quantosProdutos++] = novoProduto;
+    System.out.println("Produto cadastrado com sucesso.");
+}  
 
     public static void main(String[] args) throws Exception {
         teclado = new Scanner(System.in, Charset.forName("ISO-8859-2"));
