@@ -4,23 +4,21 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int[] vetor = {64, 15, 12, 22, 11};
+
+        int[] vetor = { 212, 32, 122 };
+        int menor = vetor[0];
+        int temp = 0;
 
         for (int i = 0; i < vetor.length - 1; i++) {
-            int index = i;
-            for (int j = i + 1; j < vetor.length; j++) {
-                if (vetor[j] < vetor[index]) {
-                    index = j; // Armazena o enderco do numero que eh menor que o index comparado
+            for (int f = 1; f < vetor.length; f++) {
+                if (vetor[f] < menor) {
+                    menor = vetor[f];
                 }
             }
-            // Troca os elementos
-            int temp = vetor[i];
-            vetor[i] = vetor[index]; // aqui ja com o endereco do menor
-            vetor[index] = temp;
+            temp = vetor[i];
+            vetor[i] = menor;
+           
         }
-
-        // Vetor ordenado
-        System.out.println("Vetor ordenado: " + Arrays.toString(vetor));
+        System.out.println(Arrays.toString(vetor));
     }
 }
-
