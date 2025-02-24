@@ -3,7 +3,7 @@ package livrariaExercicio;
 public class LivroFisico extends Livro{
     private double peso;
 
-    public LivroFisico(String titulo, String autor, double preco) {
+    public LivroFisico(String titulo, String autor, double preco, double peso) {
         super(titulo, autor, preco);
         setPeso(peso);
     }

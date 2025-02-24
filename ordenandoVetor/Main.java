@@ -7,7 +7,7 @@ public class Main {
 
         int[] vetor = { 212, 32, 122 };
         int menor = vetor[0];
-        int temp = 0;
+        
 
         for (int i = 0; i < vetor.length - 1; i++) {
             for (int f = 1; f < vetor.length; f++) {
@@ -15,7 +15,7 @@ public class Main {
                     menor = vetor[f];
                 }
             }
-            temp = vetor[i];
+            
             vetor[i] = menor;
            
         }
