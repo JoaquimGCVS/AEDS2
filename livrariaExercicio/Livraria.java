@@ -79,21 +79,20 @@ public class Livraria {
         return livros;
     }
 
-    // 3- Criar um metodo para ler um arquivo csv pronto
-    static void salvarLivros(String nomeArquivo) {
-        try (FileWriter arquivoSaida = new FileWriter(nomeArquivo, StandardCharsets.UTF_8)) {
-            int quantidade = 0;
-            for (Livro livro : livrosCadastrados) {
-                if (livro != null) {
-                    quantidade++;
-                }
+    static void salvarLivros(String caminhoDoCSV) {
+        FileWriter arquivoDeSaida = null;
+        int quantidade=0;
+        try {
+            arquivoDeSaida = new FileWriter(caminhoDoCSV,StandardCharsets.UTF_8);
+        for (Livro livro : livrosCadastrados) {
+            if(livro!=null) {
+                quantidade++;
             }
-            arquivoSaida.append(quantidade + "\n");
-            for (Livro livro : livrosCadastrados) {
-                if (livro != null) {
-                    arquivoSaida.append(livro.linhaDeDados() + "\n");
-                }
-            }
+        }
+        arquivoDeSaida.append(quantidade + "\n");
+        for (Livro livro : livrosCadastrados) {
+            arquivoDeSaida.append(livro.linhaDeDados());
+        } 
         } catch (IOException e) {
             System.err.println("Erro ao salvar o arquivo: " + e.getMessage());
         }
