@@ -17,6 +17,22 @@ public class App {
         for (int elemento : vetor) {
             System.out.print(elemento + " ");
         }
+
+        int[] vetor2 = { 23, 87, 92, 9, 3 };
+
+        System.out.println();
+        System.out.print("Before bobble: ");
+        for (int elemento : vetor2) {
+            System.out.print(elemento + " ");
+        }
+
+        vetor = organizarPorBobblesort(vetor2);
+        System.out.println();
+
+        System.out.print("After bobble: ");
+        for (int elemento : vetor2) {
+            System.out.print(elemento + " ");
+        }
     }
 
     static int[] organizarPorSelecao(int[] vetor) {
@@ -32,6 +48,20 @@ public class App {
             vetor[menor] = temp;
         }
 
+        return vetor;
+    }
+
+    static int[] organizarPorBobblesort(int[] vetor) {
+        for (int i=0;i<vetor.length-1;i++) {
+            for (int j=0; j<vetor.length-1;j++) {
+                if(vetor[j]>vetor[j+1]) {
+                    int temp = vetor[j];
+                    vetor[j]= vetor[j+1];
+                    vetor[j+1]=temp;
+                    
+                }
+            }
+        }
         return vetor;
     }
 }
