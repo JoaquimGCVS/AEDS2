@@ -1,6 +1,6 @@
 package Ordenacao;
 
-public class SelectionSort {
+public class BubbleSort {
     public static void main(String[] args) {
         int[] array = { 2, 1, 3, 6, 5, 4 };
         System.out.println();
@@ -12,31 +12,29 @@ public class SelectionSort {
 
         System.out.println();
         System.out.print("Array ordenado por selecao: ");
-        selectionSort(array);
+        bubbleSort(array);
         for (int integer : array) {
             System.out.print(integer + " ");
         }
         System.out.println();
         System.out.println();
-
     }
 
-    static int[] selectionSort(int[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            int menor = i;
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[j] < array[menor]) {
-                    menor = j;
+    static int[] bubbleSort(int[] array) {
+        
+        for (int i=array.length-1; i>0;i--) {
+            for(int j=0;j< i;j++) {
+                if(array[j]>array[j+1]) {
+                    int temp=array[j];
+                    array[j]=array[j+1];
+                    array[j+1]=temp;
                 }
             }
-            int temp = array[i];
-            array[i] = array[menor];
-            array[menor] = temp;
         }
-
+        
         return array;
     }
 
-    //Selection Sort: Encontra o menor elemento da lista e o coloca na posição correta, 
-    //repetindo isso para todas as posições. Simples, mas ineficiente para listas grandes.
+    //Bubble Sort: Compara elementos adjacentes(lado a lado) e os troca se estiverem fora de ordem, 
+    //repetindo até que toda a lista esteja ordenada. Também é lento para listas grandes.
 }
