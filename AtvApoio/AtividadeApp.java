@@ -114,4 +114,18 @@ public class AtividadeApp {
         
         return new int[] {maior, menor};
     }
+
+    static int procurarRecursivo (int[] array, int tamanho, int numero) {
+        if (tamanho<0) {
+            return -1;
+        }
+        
+        if (array[tamanho-1] == numero) {
+            int index = tamanho-1;
+            return index;
+        }
+
+        return procurarRecursivo(array, tamanho-1, numero);
+        
+    }
 }
