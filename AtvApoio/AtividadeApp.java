@@ -65,8 +65,11 @@ public class AtividadeApp {
     // número de subtrações, seja 3n + 2n^2
 
     static void subtracoesComplexidade(int n) {
+        @SuppressWarnings("unused")
         int a=10;
+        @SuppressWarnings("unused")
         int b=10;
+        @SuppressWarnings("unused")
         int c=10;
         for (int i=0;i<n;i++) {
             a--;
