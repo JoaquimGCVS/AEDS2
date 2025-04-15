@@ -21,6 +21,6 @@ public class HeapSort {
     }
 
     static int[] heapSort(int[] array) {
-        
+        return array;
     }
 }
