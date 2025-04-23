@@ -1,4 +1,4 @@
-package ordenandoVetor;
+package vetor.ordenandoVetor;
 
 public class Ordenando {
     public static void main (String args[]) {
