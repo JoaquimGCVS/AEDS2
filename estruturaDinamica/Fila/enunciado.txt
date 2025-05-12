@@ -1,0 +1,18 @@
+1- Classe Fila<E>:
+
+Deve ser genérica para aceitar qualquer tipo de dado.
+Deve usar uma classe auxiliar chamada Celula<E> para representar os nós da fila.
+
+Métodos obrigatórios:
+
+boolean vazia(): Verifica se a fila está vazia.
+void enfileirar(E item): Adiciona um elemento à frente da fila.
+E desenfileirar(): Remove e retorna o primeiro elementoe.
+E consultarPrimeiro(): Retorna o elemento da frente da fila sem removê-lo.
+void imprimir(): Imprime todos os elementos da fila.
+
+2- Classe Celula<E>:
+
+Deve armazenar:
+O item genérico (E).
+Um ponteiro para a próxima célula.
