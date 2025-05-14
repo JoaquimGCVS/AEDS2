@@ -35,9 +35,64 @@ public class Pilha<T> {
             throw new NoSuchElementException("Nao há nenhum item na pilha!");
         }
         Celula<T> auxiliar = topo;
-        while (!vazia()) {
+        while (auxiliar!=fundo) {
             System.out.println(auxiliar);
             auxiliar = auxiliar.getProxima();
         }
+    }
+
+    public void inverter() {
+        if (vazia()) {
+            throw new NoSuchElementException("Nao há nenhum item na pilha!");
+        }
+
+        Pilha<T> aux = new Pilha<>();
+        while (!vazia()) {
+            aux.empilhar(this.desempilhar());
+        }
+        this.topo = aux.topo;
+    }
+
+
+    public Pilha<T> concatenar (Pilha<T> pilha) {
+        if (pilha.vazia()) {
+            throw new NoSuchElementException("Nao há nenhum item na pilha!");
+        }
+        pilha.inverter();
+        while (!pilha.vazia()) {
+            this.empilhar(pilha.desempilhar());
+        }
+        return this;
+    }
+
+    public int obterNumeroItens() {
+        if (vazia()) {
+            throw new NoSuchElementException("Nao há nenhum item na pilha!");
+        }
+
+        int cont = 0;
+        Celula<T> atual = topo;
+    
+        while (atual!=fundo) {
+            cont++;
+            atual = atual.getProxima();
+        }
+
+        return cont;
+    }
+
+    public boolean palindromo(String palavra) {
+        Pilha<Character> pilha = new Pilha<>();
+        
+        for (char c : palavra.toCharArray()) {
+            pilha.empilhar(c);
+        }
+
+        for (char c : palavra.toCharArray()) {
+            if (c != pilha.desempilhar()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

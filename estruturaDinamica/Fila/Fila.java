@@ -3,12 +3,10 @@ package estruturaDinamica.Fila;
 public class Fila<E> {
     private Celula<E> frente; //inicio
     private Celula<E> tras; //final
-    private int tamanho;
 
     public Fila() {
         frente = null;
         tras = null;
-        tamanho = 0;
     }
 
     public void enfileirar(E item) { //adiciona um novo item E/Celula no final da fila
@@ -19,7 +17,6 @@ public class Fila<E> {
             tras.setProximoItem(novoItem);
         }
         tras = novoItem;
-        tamanho++;
     }
 
 
@@ -32,7 +29,6 @@ public class Fila<E> {
         if (vazia()) {
             tras = null;
         }
-        tamanho--;
 
         return item;
     }
@@ -60,4 +56,128 @@ public class Fila<E> {
         }
     }
 
+    public void concatenar (Fila<E> fila) {
+        if (fila.vazia()) {
+            throw new IllegalStateException("A fila passada está vazia.");
+        }
+
+        Celula<E> aux = fila.frente;
+        while (aux!=fila.tras || aux == fila.tras) {
+            this.enfileirar(aux.getItem());
+            aux = aux.getProximoItem();
+        }
+    }
+
+    public int obterNumeroItens() {
+        if (vazia()) {
+            throw new IllegalStateException("A fila está vazia.");
+        }
+
+        Celula<E> aux = frente;
+        int cont = 0;
+
+        while (aux!=tras || aux==tras) {
+            cont++;
+            aux = aux.getProximoItem();
+        }
+
+        return cont;
+    }
+
+    public boolean verificarExistencia(E item) {
+        if (vazia()) {
+            throw new IllegalStateException("A fila está vazia.");
+        }
+
+        Celula<E> aux = this.frente;
+        while (aux != null) {
+            if (aux.getItem().equals(item)){ //tipo generico deve usar equals()
+                return true;
+            }
+            aux = aux.getProximoItem();
+        }
+
+        return false;
+    }
+
+
+    public int obterNumItensAFrente(E item) throws Exception {
+        if (vazia()) {
+            throw new IllegalStateException("A fila está vazia.");
+        }
+
+        int cont=0;
+        Celula<E> aux = this.frente;
+        boolean achou = false;
+        while (aux!=null) {
+            if (aux.getItem().equals(item)) {
+                achou = true;
+                break;
+            }
+            
+            cont++;
+            aux = aux.getProximoItem();
+        }
+
+        if (!achou) {
+            throw new  Exception("O item não foi localizado na fila.");
+        }
+
+        return cont;
+    }
+
+    public Fila<E> copiar() {
+        if (vazia()) {
+            throw new IllegalStateException("A fila está vazia.");
+        }
+
+        Fila<E> copia = new Fila<>();
+        Celula<E> aux = this.frente;
+
+        while (aux!=null) {
+            copia.enfileirar(aux.getItem());
+            aux = aux.getProximoItem();
+        }
+
+        return copia;
+    }
+    
+    // Implemente a função public Fila<E> dividir(), capaz de dividir a fila original
+    // em duas, da seguinte forma: devem permanecer na fila atual os itens que ocupam,
+    // atualmente, posição ímpar nessa fila. Devem ser enfileirados, na fila que será retornada por
+    // esse método, os itens que ocupam, atualmente, posição par na fila original. Considere que
+    // o primeiro item da fila (item localizado após a célula sentinela), ocupa a posição 0.
+
+    public Fila<E> dividir() {
+        if (vazia()) {
+            throw new IllegalStateException("A fila está vazia.");
+        }
+
+        Fila<E> filaPar = new Fila<>();
+        Fila<E> filaImpar = new Fila<>();
+
+        Celula<E> aux = this.frente;
+        int i = 0;
+
+        while (aux!=null) {
+            if (i%2 == 0) {
+                filaPar.enfileirar(aux.getItem());
+            } else {
+                filaImpar.enfileirar(aux.getItem());
+            }
+            i++;
+            aux = aux.getProximoItem();
+        }
+
+        this.frente = null;
+        this.tras = null;
+
+        aux = filaImpar.frente;
+        while (aux!=null) {
+            this.enfileirar(aux.getItem());
+            aux = aux.getProximoItem();
+        }
+
+        return filaPar;
+    }
 }
