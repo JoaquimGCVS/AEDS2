@@ -1,40 +1,28 @@
 package estruturaDinamica.Lista;
 
-public class Celula<T> {
-    private T item;
-    private Celula<T> proximaCelula;
-    private int tamanho;
+public class Celula<E> {
+    private E item;
+    private Celula<E> proxima;
 
-    public Celula() {}
-
-    public Celula(T item, Celula<T> proxima) {
+    public Celula (E item) {
         setItem(item);
-        setProximaCelula(proxima);
-        tamanho = 0;
+        setProxima(proxima);
     }
 
-    public T getItem() {
+    public E getItem() {
         return item;
     }
 
-    public void setItem(T item) {
+    public void setItem(E item) {
         this.item = item;
     }
 
-    public Celula<T> getProximaCelula() {
-        return proximaCelula;
+    public Celula<E> getProxima() {
+        return proxima;
     }
 
-    public void setProximaCelula(Celula<T> proximaCelula) {
-        this.proximaCelula = proximaCelula;
-    }
-
-    public int getTamanho() {
-        return tamanho;
-    }
-
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
+    public void setProxima(Celula<E> proxima) {
+        this.proxima = proxima;
     }
 
     
