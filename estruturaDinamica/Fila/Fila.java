@@ -141,6 +141,16 @@ public class Fila<E> {
 
         return copia;
     }
+
+    public int quantosAFrente(Celula<E> atual, E item) {
+        if (atual==null) {
+            throw new IllegalStateException("O item nao foi encontrado na fila!");
+        }
+        if (atual.getItem().equals(item)) {
+            return 0;
+        }
+        return 1 + quantosAFrente(atual.getProximoItem(), item);
+    }
     
     // Implemente a função public Fila<E> dividir(), capaz de dividir a fila original
     // em duas, da seguinte forma: devem permanecer na fila atual os itens que ocupam,
