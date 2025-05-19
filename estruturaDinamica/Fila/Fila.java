@@ -1,5 +1,7 @@
 package estruturaDinamica.Fila;
 
+import estruturaDinamica.Pilha.Pilha;
+
 public class Fila<E> {
     private Celula<E> frente; //inicio
     private Celula<E> tras; //final
@@ -35,14 +37,6 @@ public class Fila<E> {
 
     public boolean vazia() {
         return frente == null; //se o incio da fila for nao tiver nenhum item, entao ela esta vazia
-    }
-
-    public E consultarPrimeiro() {
-        if (vazia()) {
-            throw new IllegalStateException("A fila está vazia.");
-        }
-        E item = frente.getItem();
-        return item;
     }
 
     public void imprimir() {
@@ -189,5 +183,85 @@ public class Fila<E> {
         }
 
         return filaPar;
+    }
+
+//     public E consultarPrimeiro() {
+//         if (vazia()) {
+//             throw new IllegalStateException("A fila está vazia.");
+//         }
+//         return frente.getItem();
+//     }
+
+//     public boolean formaxCx(String palavra) {
+//     if (palavra == null || palavra.isEmpty()) {
+//         return false;
+//     }
+//     palavra = palavra.toUpperCase();
+//     int n = palavra.length();
+
+//     // Deve ter tamanho ímpar e 'C' no meio
+//     if (n % 2 == 0 || palavra.charAt(n / 2) != 'C') {
+//         return false;
+//     }
+
+//     Fila<Character> filaEsq = new Fila<>();
+//     Fila<Character> filaDir = new Fila<>();
+
+//     // Enfileira a parte esquerda (antes do 'C')
+//     for (int i = 0; i < n / 2; i++) {
+//         char ch = palavra.charAt(i);
+//         if (ch != 'A' && ch != 'B') return false;
+//         filaEsq.enfileirar(ch);
+//     }
+
+//     // Enfileira a parte direita (depois do 'C')
+//     for (int i = n / 2 + 1; i < n; i++) {
+//         char ch = palavra.charAt(i);
+//         if (ch != 'A' && ch != 'B') return false;
+//         filaDir.enfileirar(ch);
+//     }
+
+//     // Agora compara a esquerda com a direita invertida
+//     // Como não podemos inverter a fila, vamos guardar a direita em um vetor e comparar de trás pra frente
+//     char[] direita = new char[n / 2];
+//     int idx = 0;
+//     while (!filaDir.vazia()) {
+//         direita[idx++] = filaDir.desenfileirar();
+//     }
+
+//     idx = direita.length - 1;
+//     while (!filaEsq.vazia()) {
+//         if (filaEsq.desenfileirar() != direita[idx--]) {
+//             return false;
+//         }
+//     }
+
+//     return true;
+// }
+
+
+    public boolean formaxCx(String palavra) {
+        //true se ABCBA
+        Fila<Character> letras = new Fila<>();
+
+        if (palavra == null || palavra.isEmpty()) {
+            throw new IllegalStateException("O palavra eh nula ou esta vazia!");
+        }
+        
+        if (palavra.length()%2==0 || palavra.charAt(palavra.length()/2) != 'C') {
+            return false;
+        }
+
+        for(int i=0;i<palavra.length()/2;i++) {
+            letras.enfileirar(palavra.charAt(i));
+        }
+
+        for(int i = palavra.length()-1; i > palavra.length()/2; i--) {
+            if (!letras.desenfileirar().equals(palavra.charAt(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

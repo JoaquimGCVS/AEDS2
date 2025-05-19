@@ -82,17 +82,20 @@ public class Pilha<T> {
     }
 
     public boolean palindromo(String palavra) {
-        Pilha<Character> pilha = new Pilha<>();
-        
-        for (char c : palavra.toCharArray()) {
-            pilha.empilhar(c);
+        if (palavra==null || palavra.isEmpty()) {
+            throw new IllegalStateException("A palavra esta vazia ou nula");
         }
-
-        for (char c : palavra.toCharArray()) {
-            if (c != pilha.desempilhar()) {
+        Pilha<Character> letras = new Pilha<>();
+        for (int i=0; i<palavra.length();i++) {
+            letras.empilhar(palavra.charAt(i));
+        }
+        for (int i=0; i<palavra.length();i++) {
+            if (letras.desempilhar() != palavra.charAt(i)) {
                 return false;
             }
         }
         return true;
     }
+
+    
 }

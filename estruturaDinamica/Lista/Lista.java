@@ -52,29 +52,76 @@ public class Lista<E> {
         throw new IllegalStateException("O item nao foi removido com sucesso!");
     }
 
-    public E localizar(E procurado) {
+    // public E localizar(E procurado) {
 
-        if (vazia()) {
-            throw new IllegalStateException("A lista esta vazia!");
-        }
-        Celula<E> aux = primeiro;
-        while (aux!= null) {
-            if (aux.getItem().equals(procurado)) {
-                break;
-            }
-            aux = aux.getProxima();
-        }
+    //     if (vazia()) {
+    //         throw new IllegalStateException("A lista esta vazia!");
+    //     }
+    //     Celula<E> aux = primeiro;
+    //     while (aux!= null) {
+    //         if (aux.getItem().equals(procurado)) {
+    //             break;
+    //         }
+    //         aux = aux.getProxima();
+    //     }
 
-        if (aux==null) {
-            throw new IllegalStateException("O objeto procurado nao foi encontrado");
-        }
+    //     if (aux==null) {
+    //         throw new IllegalStateException("O objeto procurado nao foi encontrado");
+    //     }
 
-        return aux.getItem();
-    }
+    //     return aux.getItem();
+    // }
 
     public boolean vazia() {
         return primeiro == null;
     }
+
+    public E localizar(E procurado) {
+        if (vazia()) {
+            throw new IllegalStateException("A lista esta vazia");
+        }
+        Celula<E> aux = primeiro;
+        while(aux!=null) {
+            if (aux.getItem().equals(procurado)) {
+                return aux.getItem();
+            }
+            aux = aux.getProxima();
+        }
+        throw new IllegalStateException("O item nao foi encontrado");
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
