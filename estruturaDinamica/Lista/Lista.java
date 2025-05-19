@@ -52,26 +52,6 @@ public class Lista<E> {
         throw new IllegalStateException("O item nao foi removido com sucesso!");
     }
 
-    // public E localizar(E procurado) {
-
-    //     if (vazia()) {
-    //         throw new IllegalStateException("A lista esta vazia!");
-    //     }
-    //     Celula<E> aux = primeiro;
-    //     while (aux!= null) {
-    //         if (aux.getItem().equals(procurado)) {
-    //             break;
-    //         }
-    //         aux = aux.getProxima();
-    //     }
-
-    //     if (aux==null) {
-    //         throw new IllegalStateException("O objeto procurado nao foi encontrado");
-    //     }
-
-    //     return aux.getItem();
-    // }
-
     public boolean vazia() {
         return primeiro == null;
     }
@@ -90,6 +70,66 @@ public class Lista<E> {
         throw new IllegalStateException("O item nao foi encontrado");
     }
 
+
+    public void inserirFinal(E item) {
+    Celula<E> novaCelula = new Celula<E>(item);
+    if (vazia()) {
+        primeiro = novaCelula;
+        ultimo = novaCelula;
+    } else {
+        ultimo.setProxima(novaCelula);
+        ultimo = novaCelula;
+    }
+    tamanho++;
+}
+
+public void inserir(E item, int posicao) {
+    if (posicao < 0 || posicao > tamanho) {
+        throw new IndexOutOfBoundsException("Posição inválida!");
+    }
+    Celula<E> novaCelula = new Celula<E>(item);
+    if (posicao == 0) {
+        novaCelula.setProxima(primeiro);
+        primeiro = novaCelula;
+        if (tamanho == 0) {
+            ultimo = novaCelula;
+        }
+    } else {
+        Celula<E> aux = primeiro;
+        for (int i = 0; i < posicao - 1; i++) {
+            aux = aux.getProxima();
+        }
+        novaCelula.setProxima(aux.getProxima());
+        aux.setProxima(novaCelula);
+        if (novaCelula.getProxima() == null) {
+            ultimo = novaCelula;
+        }
+    }
+    tamanho++;
+}
+
+public void mesclarListas(Lista<E> outraLista) {
+    Celula<E> atual = this.primeiro;
+    Celula<E> outraAtual = outraLista.primeiro;
+
+    int i = 0;
+    while (outraAtual!=null) {
+        if (atual!=null) {
+            if(i%2!=0) {
+                this.inserir(outraAtual.getItem(), i); //insere nas posicoes impares
+                outraAtual = outraAtual.getProxima();
+            }
+            atual = atual.getProxima();
+        } else {
+            this.inserirFinal(outraAtual.getItem());
+            outraAtual = outraAtual.getProxima();
+        }
+        i++;
+    }
+
+}
+
+}
     
 
 
@@ -124,4 +164,4 @@ public class Lista<E> {
 
 
 
-}
+
