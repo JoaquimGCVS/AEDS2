@@ -97,5 +97,22 @@ public class Pilha<T> {
         return true;
     }
 
-    
+    public Pilha<T> copiar() {
+        Pilha<T> aux = new Pilha<>();
+        Pilha<T> copia = new Pilha<>();
+
+        // Desempilha tudo para aux (inverte a ordem)
+        Celula<T> atual = this.topo;
+        while (atual != fundo) {
+            aux.empilhar(atual.getItem());
+            atual = atual.getProxima();
+        }
+
+        // Desempilha de aux para copia (restaura a ordem original)
+        while (!aux.vazia()) {
+            copia.empilhar(aux.desempilhar());
+        }
+
+        return copia;
+    }
 }
