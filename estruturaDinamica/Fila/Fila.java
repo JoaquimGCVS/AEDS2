@@ -1,7 +1,5 @@
 package estruturaDinamica.Fila;
 
-import estruturaDinamica.Pilha.Pilha;
-
 public class Fila<E> {
     private Celula<E> frente; //inicio
     private Celula<E> tras; //final
