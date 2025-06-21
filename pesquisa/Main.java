@@ -1,8 +1,6 @@
 package pesquisa;
 
-import java.util.NoSuchElementException;
-
-public class Main {
+public class Main<T> {
     public static void main(String[] args) {
         int[] vetorOrdenado = {1,2,3,4,5,6};
         int[] vetorDesordenado = {3,2,4,1,5,6};
@@ -41,4 +39,27 @@ public class Main {
             return pesquisaBinaria(vetor, chave, meio+1, fim); //Chave eh maior, meio se torna o incio, e +1 pois ja sabemos que meio nao eh a chave
         }
     }   
+
+    static <T> int pesquisaSequencialGenerica(T[] vetor, T chave) {
+        for (int i=0; i<vetor.length; i++) {
+            if (vetor[i].equals(chave)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    static <T extends Comparable<T>> int pesquisaBinariaGenerica(T[] vetor, T chave, int inicio, int fim) {
+        int meio = (inicio + fim) / 2; 
+        int comparacao = chave.compareTo(vetor[meio]); 
+        if (comparacao==0) {
+            return meio;
+        }
+        else if (comparacao<0) {
+            return pesquisaBinariaGenerica(vetor, chave, inicio, meio-1);
+        }
+        else {
+            return pesquisaBinariaGenerica(vetor, chave, meio+1, fim);
+        }
+    }
 }
