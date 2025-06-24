@@ -5,11 +5,11 @@ import java.util.NoSuchElementException;
 
 public class ABB<K,V> implements IMapeamento<K,V> {
     private No<K,V> raiz;
-    private Comparator<K> comparador;
+    private Comparator<K> comparadorK;
 
-    public ABB(Comparator<K> comparador) {
+    public ABB(Comparator<K> comparadorK, Comparator<V> comparadorV) {
         raiz = null;
-        this.comparador = comparador;
+        this.comparadorK = comparadorK;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class ABB<K,V> implements IMapeamento<K,V> {
             raizArvore = new No<K,V>(chave, valor);
         }
 
-        int comparacao = comparador.compare(chave, raizArvore.getChave());
+        int comparacao = comparadorK.compare(chave, raizArvore.getChave());
 
         if (comparacao==0) {
             throw new RuntimeException("O item ja esta aramazenado na arvore!");
@@ -50,7 +50,7 @@ public class ABB<K,V> implements IMapeamento<K,V> {
             throw new RuntimeException("O item nao foi encontrado");
         }
 
-        int comparacao = comparador.compare(chave, raizArvore.getChave());
+        int comparacao = comparadorK.compare(chave, raizArvore.getChave());
 
         if (comparacao==0) {
             if (raizArvore.getEsquerda()==null) {
@@ -95,7 +95,7 @@ public class ABB<K,V> implements IMapeamento<K,V> {
         if (raizArvore==null) {
             throw new NoSuchElementException("O item não foi localizado na árvore!");
         }
-        int comparacao = comparador.compare(chave, raizArvore.getChave());
+        int comparacao = comparadorK.compare(chave, raizArvore.getChave());
 
         if (comparacao==0) {
             return raizArvore.getValor();
@@ -127,5 +127,61 @@ public class ABB<K,V> implements IMapeamento<K,V> {
         }
 
         return false;
+    }
+
+    public String caminhamentoPreOrdem() {
+        if (this.raiz==null) {
+            throw new NoSuchElementException("A arvore esta vazia");
+        }
+        return caminhamentoPreOrdemRec(raiz);
+    }
+
+    private String caminhamentoPreOrdemRec(No<K,V> raizArvore) {
+        if (raizArvore==null) {
+            return "";
+        }
+        return raizArvore.getValor().toString() + (caminhamentoPreOrdemRec(raizArvore.getEsquerda()) + caminhamentoPreOrdemRec(raizArvore.getDireita()));
+    }
+
+    public String caminhamentoPosOrdem() {
+        if (this.raiz==null) {
+            throw new NoSuchElementException("A arvore esta vazia");
+        }
+        return caminhamentoPosOrdemRec(this.raiz); 
+    }
+
+    private String caminhamentoPosOrdemRec(No<K,V> raizArvore) {
+        if (raizArvore==null) {
+            return "";
+        }
+        return caminhamentoPosOrdemRec(raizArvore.getEsquerda()) + caminhamentoPosOrdemRec(raizArvore.getDireita()) + raizArvore.getValor().toString() ;
+    }
+
+    public String caminhamentoDecrescente() {
+        if (this.raiz==null) {
+            throw new NoSuchElementException("A arvore esta vaiza!");
+        }
+        return caminhamentoDecrescenteRec(this.raiz);
+    }
+
+    private String caminhamentoDecrescenteRec(No<K,V> raizArvore) {
+        if (raizArvore==null) {
+            return "";
+        }
+        return caminhamentoDecrescenteRec(raizArvore.getDireita()) + raizArvore.getValor().toString() + caminhamentoDecrescenteRec(raizArvore.getEsquerda());
+    }
+
+    public V obterMenor() {
+        if (this.raiz==null) {
+            throw new NoSuchElementException("A arvore esta vaiza!");
+        }
+        return obterMenorRec(this.raiz);
+    }
+
+    private V obterMenorRec(No<K,V> raizArvore) {
+        if (raizArvore.getEsquerda()==null) {
+            return raizArvore.getValor();
+        }
+        return obterMenorRec(raizArvore.getEsquerda());
     }
 }
