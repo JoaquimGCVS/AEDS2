@@ -115,4 +115,32 @@ public class ABB<T extends Comparable<T>> {
     public void remover(T chave) {
         this.raiz = remover(this.raiz, chave);
     }
+
+    public T obterSucessor(T item) {
+        if (this.raiz==null) {
+            throw new NoSuchElementException("A arvore esta vazia");
+        }
+        No<T> noDoItem = pesquisarNoRec(item, raiz);
+        return obterSucessorRec(noDoItem.getDireita());
+    }
+
+    private No<T> pesquisarNoRec(T item, No<T> raizArvore) {
+        if (raizArvore.getItem().compareTo(item)==0) {
+            return raizArvore;
+        }
+        else if (item.compareTo(raizArvore.getItem())<0) {
+            return pesquisarNoRec(item, raizArvore.getEsquerda());
+        }
+        return pesquisarNoRec(item, raizArvore.getDireita());
+    }
+
+    private T obterSucessorRec(No<T> raizArvore) {
+        if (raizArvore==null) {
+            throw new NoSuchElementException("A arvore nao tem sucessor");
+        }
+        else if (raizArvore.getEsquerda()!=null) {
+            return obterSucessorRec(raizArvore.getEsquerda());
+        }
+        return raizArvore.getItem();
+    }
 }

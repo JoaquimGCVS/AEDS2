@@ -184,4 +184,39 @@ public class ABB<K,V> implements IMapeamento<K,V> {
         }
         return obterMenorRec(raizArvore.getEsquerda());
     }
+
+    public int obterNivel(K chave) {
+        if (this.raiz==null) {
+            throw new NoSuchElementException("A arvore esta vaiza!");
+        }
+        return obterNivelRec(chave, this.raiz);
+    }
+
+    private int obterNivelRec(K chave, No<K,V> raizArvore) {
+        int comparacao = comparadorK.compare(chave, raizArvore.getChave());
+        if (comparacao>0){
+            return 1+ obterNivelRec(chave, raizArvore.getDireita());
+        }
+        else if (comparacao<0) {
+            return 1 + obterNivelRec(chave, raizArvore.getEsquerda());
+        }
+        return 0;
+    }
+
+    public No<K,V> obterNoSucessor(No<K,V> raizArvore) {
+        if (raizArvore==null) {
+            throw new NoSuchElementException("Raiz nao identificada!");
+        }
+        return obterNoSucessorRec(raizArvore.getDireita());
+    }
+
+    private No<K,V> obterNoSucessorRec(No<K,V> raizArvore) {
+        if (raizArvore==null) {
+            throw new NoSuchElementException("O No nao tem sucessor!");
+        }
+        if (raizArvore.getEsquerda()!=null) {
+            return obterNoSucessorRec(raizArvore.getEsquerda());
+        }
+        return raizArvore;
+    }
 }

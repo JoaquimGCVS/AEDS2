@@ -78,5 +78,4 @@ public class No<K,V> {
 
         return alturaEsquerda-alturaDireita;
     }
-    
 }
