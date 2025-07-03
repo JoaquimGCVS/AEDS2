@@ -1,4 +1,4 @@
-# 📘 Algoritmos e Estruturas de Dados II – Joaquim GCVS
+# 📘 Algoritmos e Estruturas de Dados II – Joaquim Vilela
 
 Este repositório reúne exercícios, projetos, testes e práticas desenvolvidas ao longo da disciplina **Algoritmos e Estruturas de Dados II (AEDS2)**.  
 Todo o conteúdo foi produzido por **Joaquim Vilela** durante os estudos na PUC Minas, com foco no aprofundamento de estruturas fundamentais como árvores, recursividade, ordenação, pesquisa e manipulação de arquivos.
